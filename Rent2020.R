@@ -1,10 +1,11 @@
+#By: Tracy Morales
 # Load the libraries
 library(tidyverse)
 library(lubridate)
 library(dplyr)
 
-# Create data frame "rent" from CSV file w/headers
-rent <- read_csv("Rent.20200221.csv")
+# Create data frame "Rent" from CSV file w/headers
+Rent <- read_csv("Rent.20200221.csv")
 
 # Examine the structure of Rent.csv
 summary(Rent)
@@ -52,401 +53,344 @@ peersMarSci <- filter(Rent, Peers %in% c('Woods Hole', 'Florida State', 'RSMAS',
                                          'Duke Field', 'Duke Main, UNC', 'UT'))
 
 # Draw boxplots of rent by location
-boxplot(rentbd1 ~ Peers, data = Rent,
-        col = c(rep('lightsteelblue3',40), rep('darkorange2',1)),
-        notch = T,
-        xlab = "Location",
-        ylab = "Monthly Rent ($)",
-        main = "Monthly rent for 1 BR apartments by city\n2015-2019",
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
+ggplot(Rent,
+       aes(x = Peers,
+           y = rentbd1)) +
+        geom_violin()+ 
+        coord_flip()+
+        ggtitle('Monthly rent for 1 BR apartments by city')+
+        labs(y="Monthly Rent ($)", x ="Location")
 
-# Draw boxplot of rentbd1 by specific program
-boxplot(formula = rentbd1 ~ Peers, data = peersSDS,
-        col = c(rep('lightsteelblue3',16), rep('darkorange2',1)),
-        notch = T,
-        xlab = "Competing Institutions",
-        ylab = "Monthly Rent ($)",
-        main = "Monthly rent for 1 BR apartments, \nSatistics & Data Science",
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
+# Draw boxplot of rentbd0 by specific program
+ggplot(peersSDS,
+       aes(x = Peers,
+           y = rentbd0)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 0 BR Apartments, \nStatistics & Data Science')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
 
-boxplot(formula = rentbd1 ~ Peers, data = peersPhysics,
-        col = c(rep('lightsteelblue3',9), rep('darkorange2',1)),
-        notch = T,
-        xlab = "Competing Institutions",
-        ylab = "Monthly Rent ($)",
-        main = "Monthly rent for 1 BR apartments, Physics",
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
+ggplot(peersPhysics,
+       aes(x = Peers,
+           y = rentbd0)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 0 BR Apartments, \nPhysics')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
 
-boxplot(formula = rentbd1 ~ Peers, data = peersHDFS,
-        col = c(rep('lightsteelblue3',11), rep('darkorange2',1)),
-        notch = T,
-        xlab = "Competing Institutions",
-        ylab = "Monthly Rent ($)",
-        main = "Monthly rent for 1 BR apartments, \n Human Development & Family Science",
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
+ggplot(peersHDFS,
+       aes(x = Peers,
+           y = rentbd0)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 0 BR Apartments, \nHuman Development & Family Science')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
 
-boxplot(formula = rentbd1 ~ Peers, data = peersCS,
-        col = c(rep('lightsteelblue3',5), rep('darkorange2',1)),
-        notch = T,
-        xlab = "Competing Institutions",
-        ylab = "Monthly Rent ($)",
-        main = "Monthly rent for 1 BR apartments, \nComputer Science",
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
+ggplot(peersCS,
+       aes(x = Peers,
+           y = rentbd0)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 0 BR Apartments, \nComputer Science')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
 
-boxplot(formula = rentbd1 ~ Peers, data = peersNeuro,
-        col = c(rep('lightsteelblue3',5), rep('darkorange2',1)),
-        notch = T,
-        xlab = "Competing Institutions",
-        ylab = "Monthly Rent ($)",
-        main = "Monthly rent for 1 BR apartments, \nNeuroscience",
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
+ggplot(peersNeuro,
+       aes(x = Peers,
+           y = rentbd0)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 0 BR Apartments, \nNeuroscience')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
 
-boxplot(formula = rentbd1 ~ Peers, data = peersChem,
-        col = c(rep('lightsteelblue3',7), rep('darkorange2',1)),
-        notch = T,
-        xlab = "Competing Institutions",
-        ylab = "Monthly Rent ($)",
-        main = "Monthly rent for 1 BR apartments, Chemistry",
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd1 ~ Peers, data = peersNutriSci,
-        col = c(rep('lightsteelblue3',4), rep('darkorange2',1)),
-        notch = T,
-        xlab = "Competing Institutions",
-        ylab = "Monthly Rent ($)",
-        main = "Monthly rent for 1 BR apartments, \nNutritional Science",
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd1 ~ Peers, data = peersEEBPB,
-        col = c(rep('lightsteelblue3',20), rep('darkorange2',1)),
-        notch = T,
-        xlab = "Competing Institutions",
-        ylab = "Monthly Rent ($)",
-        main = "Monthly rent for 1 BR apartments, \n EEB & PB",
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd1 ~ Peers, data = peersMarSci,
-        col = c(rep('lightsteelblue3',10), rep('darkorange2',1)),
-        notch = T,
-        xlab = "Competing Institutions",
-        ylab = "Monthly Rent ($)",
-        main = "Monthly rent for 1 BR apartments, \nMarine Science",
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-#Draw boxplot of rentbd0 by specific program
-boxplot(formula = rentbd0 ~ Peers, data = peersSDS,
-        col = c(rep('lightsteelblue3',16), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent ($)',
-        main = 'Monthly rent for studio apartments, \nStatistics & Data Science',
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd0 ~ Peers, data = peersPhysics,
-        col = c(rep('lightsteelblue3',9), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = 'Monthly rent for studio apartments, Physics',
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd0 ~ Peers, data = peersHDFS,
-        col = c(rep('lightsteelblue3',11), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = 'Monthly rent for studio apartments, \nHuman Development & Family Science',
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd0 ~ Peers, data = peersCS,
-        col = c(rep('lightsteelblue3',5), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = 'Monthly rent for studio apartments, \nComputer Science',
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd0 ~ Peers, data = peersNeuro,
-        col = c(rep('lightsteelblue3',5), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = "Monthly rent for studio apartments, \nNeuroscience",
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd0 ~ Peers, data = peersChem,
-        col = c(rep('lightsteelblue3',7), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = "Monthly rent for studio apartments, Chemistry",
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd0 ~ Peers, data = peersNutriSci,
-        col = c(rep('lightsteelblue3',4), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = 'Monthly rent for studio apartments, \nNutritional Science',
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd0 ~ Peers, data = peersEEBPB,
-        col = c(rep('lightsteelblue3',20), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = 'Monthly rent for studio apartments, \n EEB & PB',
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd0 ~ Peers, data = peersMarSci,
-        col = c(rep('lightsteelblue3',10), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = 'Monthly rent for studio apartments, \nMarine Science',
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-#Draw boxplot for rentbd2 by specific program
-boxplot(formula = rentbd2 ~ Peers, data = peersSDS,
-        col = c(rep('lightsteelblue3',16), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent ($)',
-        main = 'Monthly rent for 2 BR apartments, \nStatistics & Data Science',
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd2 ~ Peers, data = peersPhysics,
-        col = c(rep('lightsteelblue3',9), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'MonthlyRent',
-        main = 'Monthly rent for 2 BR apartments, Physics',
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd2 ~ Peers, data = peersHDFS,
-        col = c(rep('lightsteelblue3',11), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = 'Monthly rent for 2 BR apartments, \nHuman Development & Family Science',
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd2 ~ Peers, data = peersCS,
-        col = c(rep('lightsteelblue3',5), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = 'Monthly rent for 2 BR apartments, \nComputer Science',
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd2 ~ Peers, data = peersNeuro,
-        col = c(rep('lightsteelblue3',5), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = "Monthly rent for 2 BR apartments, \nNeuroscience",
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd2 ~ Peers, data = peersChem,
-        col = c(rep('lightsteelblue3',7), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = "Monthly rent for 2 BR apartments, Chemistry",
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd2 ~ Peers, data = peersNutriSci,
-        col = c(rep('lightsteelblue3',4), rep('darkorange2')),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = 'Monthly rent for 2 BR apartments, \nNutritional Science',
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd2 ~ Peers, data = peersEEBPB,
-        col = c(rep('lightsteelblue3',20), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = 'Monthly rent for 2 BR apartments, \n EEB & PB',
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd2 ~ Peers, data = peersMarSci,
-        col = c(rep('lightsteelblue3',10), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = 'Monthly rent for 2 BR apartments, \nMarine Science',
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-#Draw boxplot for rentbd3 by specific program
-boxplot(formula = rentbd3 ~ Peers, data = peersSDS,
-        col = c(rep('lightsteelblue3',16), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent ($)',
-        main = 'Monthly rent for 3 BR apartments, \nStatistics & Data Science',
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd3 ~ Peers, data = peersPhysics,
-        col = c(rep('lightsteelblue3',9), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = 'Monthly rent for 3 BR apartments, Physics',
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd3 ~ Peers, data = peersHDFS,
-        col = c(rep('lightsteelblue3',11), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = 'Monthly rent for 3 BR apartments, \nHuman Development & Family Science',
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd3 ~ Peers, data = peersCS,
-        col = c(rep('lightsteelblue3',5), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = 'Monthly rent for 3 BR apartments, \nComputer Science',
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd3 ~ Peers, data = peersNeuro,
-        col = c(rep('lightsteelblue3',5), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = "Monthly rent for 3 BR apartments, \nNeuroscience",
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd3 ~ Peers, data = peersChem,
-        col = c(rep('lightsteelblue3',7), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = "Monthly rent for 3 BR apartments, Chemistry",
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd3 ~ Peers, data = peersNutriSci,
-        col = c(rep('lightsteelblue3',4), rep('darkorange2')),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = 'Monthly rent for 3 BR apartments, \nNutritional Science',
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7)
-
-boxplot(formula = rentbd3 ~ Peers, data = peersEEBPB,
-        col = c(rep('lightsteelblue3',20), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = 'Monthly rent for 3 BR apartments, \n EEB & PB',
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7,
-        horizontal = T)
-
-boxplot(formula = rentbd3 ~ Peers, data = peersMarSci,
-        col = c(rep('lightsteelblue3',10), rep('darkorange2',1)),
-        notch = T,
-        xlab = 'Competing Institutions',
-        ylab = 'Monthly Rent',
-        main = 'Monthly rent for 3 BR apartments, \nMarine Science',
-        las = 2,
-        cex.axis=.5,
-        cex.lab = .7,
-        horizontal=T)
-
-library(ggplot2)
-
-levels(peersChem$effect) <- gsub(" ", "\n", 
-levels(peersChem$effect))
 ggplot(peersChem,
        aes(x = Peers,
            y = rentbd0)) +
-        geom_boxplot()+ 
-        coord_flip()
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 0 BR Apartments, \nChemistry')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
 
-levels(peersEEBPB$effect) <- gsub(" ", "\n", 
-levels(peersEEBPB$effect))
+ggplot(peersNutriSci,
+       aes(x = Peers,
+           y = rentbd0)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 0 BR Apartments, \nNutritional Science')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
 ggplot(peersEEBPB,
        aes(x = Peers,
            y = rentbd0)) +
-        geom_boxplot()+ 
+        geom_violin(fill = 'lightsteelblue3')+ 
         coord_flip()+
-        ggtitle('Monthly rent for 3 BR apartments, \n EEB & PB')+
-        labs(y="Monthly Rent", x = "Competing Institutions")
+        ggtitle('Monthly Rent for 0 BR Apartments, \nEcology, Evolution and Behavior & Plant Biology')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersMarSci,
+       aes(x = Peers,
+           y = rentbd0)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 0 BR Apartments, \nMarine Science')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+
+#Draw boxplot of rentbd1 by specific program
+ggplot(peersSDS,
+       aes(x = Peers,
+           y = rentbd1)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 1 BR Apartments, \nStatistics & Data Science')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersPhysics,
+       aes(x = Peers,
+           y = rentbd1)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 1 BR Apartments, \nPhysics')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersHDFS,
+       aes(x = Peers,
+           y = rentbd1)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 1 BR Apartments, \nHuman Development & Family Science')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersCS,
+       aes(x = Peers,
+           y = rentbd1)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 1 BR Apartments, \nComputer Science')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersNeuro,
+       aes(x = Peers,
+           y = rentbd1)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 1 BR Apartments, \nNeuroscience')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersChem,
+       aes(x = Peers,
+           y = rentbd1)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 1 BR Apartments, \nChemistry')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersNutriSci,
+       aes(x = Peers,
+           y = rentbd1)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 1 BR Apartments, \nNutritional Science')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersEEBPB,
+       aes(x = Peers,
+           y = rentbd1)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 1 BR Apartments, \nEcology, Evolution and Behavior & Plant Biology')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersMarSci,
+       aes(x = Peers,
+           y = rentbd1)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 1 BR Apartments, \nMarine Science')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+#Draw boxplot for rentbd2 by specific program
+ggplot(peersSDS,
+       aes(x = Peers,
+           y = rentbd2)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 2 BR Apartments, \nStatistics & Data Science')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersPhysics,
+       aes(x = Peers,
+           y = rentbd2)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 2 BR Apartments, \nPhysics')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersHDFS,
+       aes(x = Peers,
+           y = rentbd2)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 2 BR Apartments, \nHuman Development & Family Science')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersCS,
+       aes(x = Peers,
+           y = rentbd2)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 2 BR Apartments, \nComputer Science')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersNeuro,
+       aes(x = Peers,
+           y = rentbd2)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 2 BR Apartments, \nNeuroscience')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersChem,
+       aes(x = Peers,
+           y = rentbd2)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 2 BR Apartments, \nChemistry')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersNutriSci,
+       aes(x = Peers,
+           y = rentbd2)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 2 BR Apartments, \nNutritional Science')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersEEBPB,
+       aes(x = Peers,
+           y = rentbd2)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 2 BR Apartments, \nEcology, Evolution and Behavior & Plant Biology')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersMarSci,
+       aes(x = Peers,
+           y = rentbd2)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 2 BR Apartments, \nMarine Science')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+#Draw boxplot for rentbd3 by specific program
+ggplot(peersSDS,
+       aes(x = Peers,
+           y = rentbd3)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 3 BR Apartments, \nStatistics & Data Science')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersPhysics,
+       aes(x = Peers,
+           y = rentbd3)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 3 BR Apartments, \nPhysics')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersHDFS,
+       aes(x = Peers,
+           y = rentbd3)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 3 BR Apartments, \nHuman Development & Family Science')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersCS,
+       aes(x = Peers,
+           y = rentbd3)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 3 BR Apartments, \nComputer Science')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersNeuro,
+       aes(x = Peers,
+           y = rentbd3)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 3 BR Apartments, \nNeuroscience')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersChem,
+       aes(x = Peers,
+           y = rentbd3)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 3 BR Apartments, \nChemistry')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersNutriSci,
+       aes(x = Peers,
+           y = rentbd3)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 3 BR Apartments, \nNutritional Science')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersEEBPB,
+       aes(x = Peers,
+           y = rentbd3)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 3 BR Apartments, \nEcology, Evolution and Behavior & Plant Biology')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+ggplot(peersMarSci,
+       aes(x = Peers,
+           y = rentbd3)) +
+        geom_violin(fill = 'lightsteelblue3')+ 
+        coord_flip()+
+        ggtitle('Monthly Rent for 3 BR Apartments, \nMarine Science')+
+        labs(y="Monthly Rent ($)", x ="Competing Institutions")+
+        theme_bw()
+
+
 
 
 
