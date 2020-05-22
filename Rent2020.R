@@ -3,6 +3,7 @@
 library(tidyverse)
 library(lubridate)
 library(dplyr)
+library(ggplot2)
 
 # Create data frame "Rent" from CSV file w/headers
 Rent <- read_csv("Rent.20200221.csv")
@@ -52,7 +53,7 @@ peersMarSci <- filter(Rent, Peers %in% c('Woods Hole', 'Florida State', 'RSMAS',
                                          'UCSB', 'UWashington', 'UCSD, Scripps', 'UCSC', 'UMaine', 'USF',
                                          'Duke Field', 'Duke Main, UNC', 'UT'))
 
-# Draw boxplots of rent by location
+# Draw violin plots of rent by location
 ggplot(Rent,
        aes(x = Peers,
            y = rentbd1)) +
@@ -61,7 +62,7 @@ ggplot(Rent,
         ggtitle('Monthly rent for 1 BR apartments by city')+
         labs(y="Monthly Rent ($)", x ="Location")
 
-# Draw boxplot of rentbd0 by specific program
+# Draw violin plot of rentbd0 by specific program
 ggplot(peersSDS,
        aes(x = Peers,
            y = rentbd0)) +
@@ -144,7 +145,7 @@ ggplot(peersMarSci,
         theme_bw()
 
 
-#Draw boxplot of rentbd1 by specific program
+#Draw violin plot of rentbd1 by specific program
 ggplot(peersSDS,
        aes(x = Peers,
            y = rentbd1)) +
@@ -226,7 +227,7 @@ ggplot(peersMarSci,
         labs(y="Monthly Rent ($)", x ="Competing Institutions")+
         theme_bw()
 
-#Draw boxplot for rentbd2 by specific program
+#Draw violin plot for rentbd2 by specific program
 ggplot(peersSDS,
        aes(x = Peers,
            y = rentbd2)) +
@@ -308,7 +309,7 @@ ggplot(peersMarSci,
         labs(y="Monthly Rent ($)", x ="Competing Institutions")+
         theme_bw()
 
-#Draw boxplot for rentbd3 by specific program
+#Draw violin plot for rentbd3 by specific program
 ggplot(peersSDS,
        aes(x = Peers,
            y = rentbd3)) +
